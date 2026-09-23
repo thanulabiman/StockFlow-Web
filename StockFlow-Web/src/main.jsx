@@ -1,10 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
-import Card from "./components/Card";
+import "./styles/index.css"
+
+import Home from "./pages/Home"
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Card content={("Hello World")} />
+    <Home />
   </StrictMode>,
 )
