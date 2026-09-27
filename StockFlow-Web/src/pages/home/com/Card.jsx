@@ -1,15 +1,15 @@
 import React from 'react'
 
-import Card from "../components/Card"
-import Button from '../components/Button'
-import { Button as ShadCNButton } from '../components/ui/button'
+import {Card as CommonCard} from "../../../components/Card"
+import Button from '../../../components/Button'
+import { Button as ShadCNButton } from '../../../components/ui/button'
 
-function Home() {
+
+function Card() {
     return (
         <div>
-            Home
-            <Card content={"Card 1"}/>
-            <Card content={"Card 2"}/>
+            <CommonCard content={"Card 1"} />
+            <CommonCard content={"Card 2"} />
 
             <Button />
             <ShadCNButton>OK</ShadCNButton>
@@ -22,4 +22,4 @@ function Home() {
     )
 }
 
-export default Home
+export default Card

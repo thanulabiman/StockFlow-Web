@@ -6,4 +6,4 @@ function Card({ content }) {
     </h1>
 }
 
-export default Card
+export{Card}
