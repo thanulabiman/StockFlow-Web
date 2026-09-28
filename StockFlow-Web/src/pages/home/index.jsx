@@ -2,15 +2,14 @@ import React from 'react';
 
 import Card from './com/Card';
 
-import TopNav from '../../components/top-nav/TopNav';
+import DefaultLayout from '../../layouts/DefaultLayout';
 
 function Home() {
     return (
-        <div>
-            <TopNav />
+        <DefaultLayout>
             Home
             <Card />
-        </div>
+        </DefaultLayout>
     )
 }
 
