@@ -4,13 +4,15 @@ import AuthLayout from '../../layouts/AuthLayout'
 
 import { useState } from 'react'
 
+import { Home } from 'lucide-react'
+
+import { useNavigate } from 'react-router-dom'
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -18,6 +20,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 function Login() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     password: ""
@@ -41,12 +44,13 @@ function Login() {
     <AuthLayout>
       <Card className="w-full max-w-sm">
         <CardHeader className='text-center h-16'>
+          <Home onClick={() => navigate("/")} className='hover:cursor-pointer mt-auto size-5' />
           <CardTitle className='text-2xl font-semibold'>Login</CardTitle>
           <CardDescription>
             Enter your email below to login to your account
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className='mt-6'>
           <form onSubmit={(handleSubmit)}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
