@@ -1,4 +1,4 @@
-import { Home, Login, Error, StockSummary, StockRequets, DistributionRuns, ReturnApprovals } from "@/pages";
+import { Login, Error, StockSummary, StockRequets, DistributionRuns, ReturnApprovals } from "@/pages";
 
 export const routes = [
     {
