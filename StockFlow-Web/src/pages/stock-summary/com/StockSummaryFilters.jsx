@@ -5,7 +5,7 @@ import { monthOptions, warehouseOptions } from '@/data/mock/stock-summary'
 
 function StockSummaryFilters() {
     return (
-        <div className='flex flex-wrap items-center justify-end-gap-3 py-3'>
+        <div className='flex flex-wrap items-center justify-end gap-3 py-3'>
             <Select items={warehouseOptions} defaultValue="all">
                 <SelectTrigger className="w-full sm:min-w-60 sm:w-auto">
                     <SelectValue placeholder="Select a Warehouse"/>
