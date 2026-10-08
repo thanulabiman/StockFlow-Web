@@ -16,7 +16,7 @@ function StockRequestsTable() {
     const isPending = view === "pending";
 
     return (
-        <Card className="gap-0 rounded-2xl py-0 shadow-none">
+        <Card className="gap-0 rounded-2xl py-0 shadow-none mt-3">
             <CardHeader className="border-b px-4 py-4">
                 <div role="tablist" aria-label='Stock request views' className='flex w-fit rounded-xl bg-muted p-1'>
                     <Button
