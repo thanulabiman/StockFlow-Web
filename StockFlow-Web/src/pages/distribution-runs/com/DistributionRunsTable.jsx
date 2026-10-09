@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,8 @@ import { distributionRuns } from "@/data/mock/distribution-runs";
 import DistributionRunDetails from "./DistributionRunDetails";
 import DistributionRunFilters from "./DistributionRunFilters";
 import DistributionStatusBadge from "./DistributionStatusBadge";
+
+import { useSearch } from "@/hooks/SearchHook";
 
 const initialFilters = {
   query: "",
@@ -40,25 +42,7 @@ function DistributionRunsTable() {
   const [filters, setFilters] = useState(initialFilters);
   const [expandedRunId, setExpandedRunId] = useState(null);
 
-  const visibleRuns = useMemo(() => {
-    const query = filters.query.trim().toLowerCase();
-
-    return distributionRuns.filter((run) => {
-      const matchesQuery =
-        !query ||
-        run.id.toLowerCase().includes(query) ||
-        run.requestId.toLowerCase().includes(query) ||
-        run.fdo.toLowerCase().includes(query) ||
-        run.route.toLowerCase().includes(query);
-
-      return (
-        matchesQuery &&
-        matchesStatus(run.status, filters.status) &&
-        (filters.warehouse === "all" || run.warehouse === filters.warehouse) &&
-        (filters.fdo === "all" || run.fdo === filters.fdo)
-      );
-    });
-  }, [filters]);
+  const visibleRuns = useSearch(distributionRuns,filters.query,["id","requestId","fdo","route"],{status:filters.status, warehouse:filters.warehouse, fdo:filters.fdo})
 
   function changeFilter(name, value) {
     setFilters((currentFilters) => ({ ...currentFilters, [name]: value }));

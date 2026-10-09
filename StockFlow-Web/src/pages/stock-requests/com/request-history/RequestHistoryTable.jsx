@@ -1,4 +1,4 @@
-import { Fragment, useMemo, useState } from "react";
+import { Fragment, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,8 @@ import RequestStatusBadge from "../shared/RequestStatusBadge";
 import HistoryRequestDetails from "./HistoryRequestDetails";
 import RequestHistoryFilters from "./RequestHistoryFilters";
 
+import { useSearch } from "@/hooks/SearchHook";
+
 const initialFilters = {
   query: "",
   status: "all",
@@ -28,25 +30,8 @@ function RequestHistoryTable() {
   const [expandedRequestId, setExpandedRequestId] = useState(null);
   const [filters, setFilters] = useState(initialFilters);
 
-  const requests = useMemo(() => {
-    const normalizedQuery = filters.query.trim().toLowerCase();
 
-    return stockRequestHistory.filter((request) => {
-      const matchesQuery =
-        !normalizedQuery ||
-        request.id.toLowerCase().includes(normalizedQuery) ||
-        request.fdo.toLowerCase().includes(normalizedQuery) ||
-        request.warehouse.toLowerCase().includes(normalizedQuery) ||
-        request.route.toLowerCase().includes(normalizedQuery);
-
-      return (
-        matchesQuery &&
-        (filters.status === "all" || request.status === filters.status) &&
-        (filters.warehouse === "all" || request.warehouse === filters.warehouse) &&
-        (filters.fdo === "all" || request.fdo === filters.fdo)
-      );
-    });
-  }, [filters]);
+  const requests = useSearch(stockRequestHistory,filters.query,["id","fdo","warehouse","route"],{status:filters.status, warehouse:filters.warehouse, fdo:filters.fdo})
 
   function changeFilter(name, value) {
     setFilters((currentFilters) => ({ ...currentFilters, [name]: value }));
@@ -102,7 +87,7 @@ function RequestHistoryTable() {
                       onClick={() => toggleRequest(request.id)}
                       onKeyDown={(event) => handleRowKeyDown(event, request.id)}
                     >
-                      <TableCell className="px-4 font-mono text-[11px] text-[#e94713]">
+                      <TableCell className="px-4 font-mono text-[11px] text-[#0735de]">
                         {request.id}
                       </TableCell>
                       <TableCell className="font-medium text-foreground">{request.fdo}</TableCell>

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ArrowUpDown, Search } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -24,6 +24,8 @@ import {
   productStockItems,
 } from "@/data/mock/stock-summary";
 
+import { useSearch } from "@/hooks/SearchHook";
+
 const statusStyles = {
   healthy: "border-emerald-200 bg-emerald-50 text-emerald-700",
   "low-stock": "border-amber-200 bg-amber-50 text-amber-700",
@@ -37,21 +39,7 @@ const statusLabels = Object.fromEntries(
 function ProductStock() {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("all");
-
-  const normalizedQuery = query.trim().toLowerCase();
-  const filteredProducts = useMemo(()=>{
-
-    return productStockItems.filter((product) =>{
-    const matchesQuery= !normalizedQuery ||
-    product.name.toLowerCase().includes(normalizedQuery) ||
-    product.sku.toLowerCase().includes(normalizedQuery);
-
-    const matchesStatus=status==="all" || product.status === status;
-
-    return matchesQuery && matchesStatus;
-  });
-  },[query,status]);
-    
+  const filteredProducts = useSearch(productStockItems,query,["name","sku"],{status:status})
 
     
   return (
