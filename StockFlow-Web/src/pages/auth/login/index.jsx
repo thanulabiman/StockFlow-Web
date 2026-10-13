@@ -1,12 +1,12 @@
 import React, { use } from 'react'
 
-import AuthLayout from '../../layouts/AuthLayout'
+import AuthLayout from '../../../layouts/AuthLayout'
 
 import { useState } from 'react'
 
 import { Home } from 'lucide-react'
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,NavLink } from 'react-router-dom'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -81,6 +81,16 @@ function Login() {
               Login
             </Button>
           </form>
+
+          <p className="mt-6 text-center text-sm text-muted-foreground">
+            New to StockFlow?{" "}
+            <NavLink
+              to="/sign-up"
+              className="font-medium text-[#0735de] hover:underline"
+            >
+              Sign up
+            </NavLink>
+          </p>
         </CardContent>
 
       </Card>

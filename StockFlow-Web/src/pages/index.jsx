@@ -1,8 +1,7 @@
-import Login from '@/pages/login'
-import Error from '@/pages/error'
-import StockSummary from './stock-summary'
-import StockRequets from './stock-requests'
-import DistributionRuns from './distribution-runs'
-import ReturnApprovals from './return-approvals'
 
-export { Login, Error, StockSummary, StockRequets, DistributionRuns, ReturnApprovals }
+import Error from '@/pages/error'
+export { Error }
+
+export * from "@/pages/fdo"
+export * from "@/pages/sm"
+export * from "@/pages/auth"

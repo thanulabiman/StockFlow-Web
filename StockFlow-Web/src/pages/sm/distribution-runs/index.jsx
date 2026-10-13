@@ -1,6 +1,6 @@
 import React from 'react'
 
-import DefaultLayout from '@/layouts/DefaultLayout'
+import SMLayout from '@/layouts/SMLayout'
 
 import { distributionRuns } from '@/data/mock/distribution-runs'
 import DistributionRunsTable from './com/DistributionRunsTable'
@@ -10,7 +10,7 @@ const closedRunCount = distributionRuns.filter((run)=> run.status === "closed").
 const activeRunCount = distributionRuns.length - closedRunCount;
 
   return (
-    <DefaultLayout>
+    <SMLayout>
       <div className='mx-auto max-w-6xl space-y-5'>
         <div className='mt-3'>
           <h1 className='text-lg font-semibold'>Distribution Runs</h1>
@@ -21,7 +21,7 @@ const activeRunCount = distributionRuns.length - closedRunCount;
 
         <DistributionRunsTable />
       </div>
-    </DefaultLayout>
+    </SMLayout>
   )
 }
 

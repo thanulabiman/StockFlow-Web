@@ -1,6 +1,6 @@
 import React from 'react'
 
-import DefaultLayout from '@/layouts/DefaultLayout'
+import SMLayout from '@/layouts/SMLayout'
 
 import StockSummaryFilters from './com/StockSummaryFilters'
 import GreetingBanner from './com/GreetingBanner'
@@ -10,13 +10,13 @@ import ProductStock from './com/ProductStock'
 
 function StockSummary() {
   return (
-    <DefaultLayout>
+    <SMLayout>
       <StockSummaryFilters />
       <GreetingBanner />
       <StockOverview />
       <MonthlyStockMovement />
       <ProductStock />
-    </DefaultLayout>
+    </SMLayout>
   )
 }
 
