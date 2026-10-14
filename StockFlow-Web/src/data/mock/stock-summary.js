@@ -8,7 +8,7 @@ import {
 
 export const stockSummaryGreeting = {
   role: "WAREHOUSE MANAGER",
-  title: "Good evening, Thanula!",
+  title: "Good evening, Amila!",
   description:
     "Monitor stock levels, review distribution requests, and manage FDO runs across all warehouses.",
   date: "Thursday, 7 October 2026",

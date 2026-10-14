@@ -1,101 +1,186 @@
-import React, { use } from 'react'
+import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
-import AuthLayout from '../../../layouts/AuthLayout'
+import { Eye, EyeOff, ChartColumn, House } from "lucide-react";
 
-import { useState } from 'react'
+import AuthLayout from "@/layouts/AuthLayout";
 
-import { Home } from 'lucide-react'
-
-import { useNavigate,NavLink } from 'react-router-dom'
-
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { signInWithPassword } from "@/lib/auth";
+
+const landingPageByRole = {
+  "stock-manager": "/",
+  "fdo": "/fdo",
+};
 
 function Login() {
   const navigate = useNavigate();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [form, setForm] = useState({
     email: "",
-    password: ""
-  })
+    password: "",
+  });
 
   function handleChange(event) {
-    const { name, value } = event.target
+    const { name, value } = event.target;
 
     setForm((currentForm) => ({
       ...currentForm,
       [name]: value,
     }));
-
+    setError("");
   }
 
-  function handleSubmit(event) {
-    alert(JSON.stringify(form))
+  async function handleSubmit(event) {
+    event.preventDefault();
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      const user = await signInWithPassword(form);
+      const destination = user && landingPageByRole[user.role];
+
+      if (!destination) {
+        setError("Invalid email or password.");
+        return;
+      }
+
+      navigate(destination, { replace: true });
+    } catch {
+      setError("Unable to sign in. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
     <AuthLayout>
-      <Card className="w-full max-w-sm">
-        <CardHeader className='text-center h-16'>
-          <Home onClick={() => navigate("/")} className='hover:cursor-pointer mt-auto size-5' />
-          <CardTitle className='text-2xl font-semibold'>Login</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent className='mt-6'>
-          <form onSubmit={(handleSubmit)}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
+      <div className="w-full max-w-md px-4">
+        <NavLink to="/" className="mb-6 flex items-center justify-center gap-2">
+          <span className="flex size-10 items-center justify-center rounded-lg bg-[#0735de] text-white">
+            <ChartColumn className="size-5" />
+          </span>
+
+          <div>
+            <p className="text-xl font-semibold leading-none text-foreground">
+              StockFlow
+            </p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Distribution System
+            </p>
+          </div>
+        </NavLink>
+
+        <Card>
+          <CardHeader className="text-center">
+            <House className="size-4 mt-auto hover:cursor-pointer" onClick={()=>navigate("/stock-summary")}/>
+            <CardTitle className="text-2xl">Login</CardTitle>
+          
+
+            <CardDescription>
+              Enter your credentials to access your account
+            </CardDescription>
+          </CardHeader>
+
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
+
                 <Input
                   id="email"
-                  type="email"
                   name="email"
-                  placeholder="m@example.com"
-                  onChange={(handleChange)}
+                  type="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="manager@stockflow.com"
+                  autoComplete="email"
                   required
                 />
               </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+
+                  <NavLink
+                    to="/forgot-password"
+                    className="text-xs font-medium text-[#0735de] hover:underline"
                   >
-                    Forgot your password?
-                  </a>
+                    Forgot password?
+                  </NavLink>
                 </div>
-                <Input id="password" type="password" name="password" onChange={(handleChange)} required />
+
+                <div className="relative">
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    value={form.password}
+                    onChange={handleChange}
+                    placeholder="Enter your password"
+                    autoComplete="current-password"
+                    className="pr-10"
+                    required
+                  />
+
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon-sm"
+                    className="absolute right-1 top-1/2 -translate-y-1/2"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    onClick={() => setShowPassword((current) => !current)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="size-4" />
+                    ) : (
+                      <Eye className="size-4" />
+                    )}
+                  </Button>
+                </div>
               </div>
-            </div>
-            <Button type="submit" className="w-full bg-[#0735de] hover:bg-[#032aa1] mt-6">
-              Login
-            </Button>
-          </form>
 
-          <p className="mt-6 text-center text-sm text-muted-foreground">
-            New to StockFlow?{" "}
-            <NavLink
-              to="/sign-up"
-              className="font-medium text-[#0735de] hover:underline"
-            >
-              Sign up
-            </NavLink>
-          </p>
-        </CardContent>
+              {error ? (
+                <p role="alert" className="text-sm text-destructive">
+                  {error}
+                </p>
+              ) : null}
 
-      </Card>
+              <Button
+                type="submit"
+                className="w-full bg-[#0735de] hover:bg-[#032aa1]"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Signing in..." : "Sign in"}
+              </Button>
+            </form>
+
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+              New to StockFlow?{" "}
+              <NavLink
+                to="/sign-up"
+                className="font-medium text-[#0735de] hover:underline">
+                Sign up
+              </NavLink>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </AuthLayout>
-  )
+  );
 }
 
-export default Login
+export default Login;
