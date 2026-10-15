@@ -42,7 +42,7 @@ function DistributionRunsTable() {
   const [filters, setFilters] = useState(initialFilters);
   const [expandedRunId, setExpandedRunId] = useState(null);
 
-  const visibleRuns = useSearch(distributionRuns,filters.query,["id","requestId","fdo","route"],{status:filters.status, warehouse:filters.warehouse, fdo:filters.fdo})
+  const visibleRuns = useSearch(distributionRuns,filters.query,["id","requestId","fdo","route"],{status:filters.status, warehouse:filters.warehouse, fdo:filters.fdo});
 
   function changeFilter(name, value) {
     setFilters((currentFilters) => ({ ...currentFilters, [name]: value }));
