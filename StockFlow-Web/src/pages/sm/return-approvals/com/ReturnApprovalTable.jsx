@@ -29,9 +29,7 @@ function ReturnApprovalTable() {
 
                     <Badge className="bg-[#0735de] px-1.5 text-white">{pendingReturnApprovals.length}</Badge>
                 </Button>
-            </div>
 
-            <div role='tablist' aria-label='Accepted returns views' className='flex w-fit rounded-xl bg-muted p-1'>
                 <Button
                 type="button"
                 role="tab"

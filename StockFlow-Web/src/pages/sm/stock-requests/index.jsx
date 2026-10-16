@@ -1,23 +1,22 @@
-import React from 'react'
+import SMLayout from "@/layouts/SMLayout";
 
-import SMLayout from '@/layouts/SMLayout'
+import StockRequestsTable from "./com/StockRequestsTable";
 
-import { pendingStockRequests } from '@/data/mock/stock-requests'
-import StockRequestsTable from './com/StockRequestsTable'
-
-function StockRequets() {
+function StockRequests() {
   return (
     <SMLayout>
-      <div className='mx-auto w-full max-w-6xl space-y-5'>
+      <div className="mx-auto w-full max-w-6xl space-y-5">
         <div>
-          <h1 className='mt-3 text-lg font-semibold'>Stock Requests</h1>
-          <p className='mt-1 text-muted-foreground text-sm'>{pendingStockRequests.length} pending requests awaiting decision</p>
+          <h1 className="mt-3 text-lg font-semibold">Stock Requests</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Review requests and propose stock allocations for FDO acceptance.
+          </p>
         </div>
 
-      <StockRequestsTable />
+        <StockRequestsTable />
       </div>
     </SMLayout>
-  )
+  );
 }
 
-export default StockRequets
+export default StockRequests;
