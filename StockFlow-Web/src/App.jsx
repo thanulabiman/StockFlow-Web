@@ -1,8 +1,14 @@
 import AppRoutes from "./routing/AppRoutes"
+import { ClerkAuthProvider } from "./providers"
+
+
 
 function App() {
     return (
-        <AppRoutes />
+        <ClerkAuthProvider>
+            <AppRoutes />
+        </ClerkAuthProvider>
+        
     )
 }
 
