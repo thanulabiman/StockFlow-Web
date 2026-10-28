@@ -16,9 +16,6 @@ function ClerkAuthProvider({ children }) {
       routerPush={(to) => navigate(to)}
       routerReplace={(to) => navigate(to, { replace: true })}
       signInUrl="/login"
-      signUpUrl="/sign-up"
-      signInFallbackRedirectUrl="/"
-      signUpFallbackRedirectUrl="/"
       afterSignOutUrl="/login"
     >
       {children}
