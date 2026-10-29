@@ -18,7 +18,7 @@ export const routes = [
     {
         title: "Home",
         route: "/",
-        page: <Pages.Continue/>,
+        page: <Pages.AuthContinue/>,
         access: RouteAccess.PROTECTED
     },
     {
