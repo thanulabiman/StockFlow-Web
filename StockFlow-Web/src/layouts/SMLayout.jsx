@@ -3,13 +3,13 @@ import React from 'react'
 import TopNav from '../components/top-nav/TopNav'
 
 import SideBar from '../components/sidebar/SideBar'
-import { sidebarHeaderSM, SideBarNavSM, sidebarProfileSM } from '@/data/sidebar/sidebar_nav_sm'
+import { sidebarHeaderSM, SideBarNavSM} from '@/data/sidebar/sidebar_nav_sm'
 
 
 function SMLayout({ children }) {
     return (
         <div className='flex flex-row min-h-screen'>
-            <SideBar nav={SideBarNavSM} profile={sidebarProfileSM} header={sidebarHeaderSM} />
+            <SideBar nav={SideBarNavSM} header={sidebarHeaderSM} />
 
             <div className='flex-1 bg-mist-100'>
                 <TopNav />

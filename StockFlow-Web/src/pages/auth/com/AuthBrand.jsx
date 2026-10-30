@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function AuthBrand() {
   return (
     <Link to="/" className="mb-6 flex items-center justify-center gap-2">
-      <span className="flex size-10 items-center justify-center rounded-lg bg-orange-500 text-white">
+      <span className="flex size-10 items-center justify-center rounded-lg bg-[#0735de] text-white">
         <ChartColumn className="size-5" />
       </span>
       <div>

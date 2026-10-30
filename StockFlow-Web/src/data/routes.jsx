@@ -5,13 +5,13 @@ export const routes = [
     //Auth
     {
         title: "Login",
-        route: "/login",
+        route: "/login/*",
         page: <Pages.Login />,
         access: RouteAccess.PUBLIC
     },
     {
         title: "Sign Up",
-        route: "/sign-up",
+        route: "/sign-up/*",
         page: <Pages.SignUp />,
         access: RouteAccess.PUBLIC
     },
