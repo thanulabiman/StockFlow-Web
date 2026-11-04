@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ArrowUpDown, Search } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -21,10 +21,7 @@ import {
 } from "@/components/ui/table";
 import {
   productStatusOptions,
-  productStockItems,
 } from "@/data/mock/stock-summary";
-
-import { useSearch } from "@/hooks/SearchHook";
 
 const statusStyles = {
   healthy: "border-emerald-200 bg-emerald-50 text-emerald-700",
@@ -36,12 +33,24 @@ const statusLabels = Object.fromEntries(
   productStatusOptions.map(({ label, value }) => [value, label]),
 );
 
-function ProductStock() {
+function ProductStock({ products }) {
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("all");
-  const filteredProducts = useSearch(productStockItems,query,["name","sku"],{status:status})
 
-    
+  const filteredProducts = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    return products.filter((product) => {
+      const matchesQuery =
+        !normalizedQuery ||
+        product.name.toLowerCase().includes(normalizedQuery) ||
+        product.sku.toLowerCase().includes(normalizedQuery);
+      const matchesStatus = status === "all" || product.status === status;
+
+      return matchesQuery && matchesStatus;
+    });
+  }, [products, query, status]);
+
   return (
     <section aria-labelledby="product-stock-heading">
       <Card className="gap-0 rounded-xl py-0 shadow-none mb-3">

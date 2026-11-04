@@ -125,9 +125,9 @@ export const stockUpdateProductOptions = [
 
 export const warehouseOptions = [
   { label: "All Warehouses", value: "all" },
-  { label: "Colombo Central Warehouse", value: "Colombo" },
-  { label: "Kandy Warehouse", value: "Kandy" },
-  { label: "Galle Warehouse", value: "Galle" },
+  { label: "Colombo Central Warehouse", value: "colombo" },
+  { label: "Kandy Warehouse", value: "kandy" },
+  { label: "Galle Warehouse", value: "galle" },
 ];
 
 export const monthOptions = [
